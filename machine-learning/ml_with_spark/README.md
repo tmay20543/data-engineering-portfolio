@@ -18,7 +18,7 @@ Structured Streaming, simulating a smart building HVAC monitoring system.
 - Multi-stream processing
 
 ## What I'd add in production
-- Write streams to a data warehouse (Redshift/BigQuery) instead of console
+- Write streams to a data warehouse instead of console
 - Add alerting (email/Slack) when critical thresholds are breached
 - Containerise with Docker for deployment
 - Add schema validation on inbound sensor data
