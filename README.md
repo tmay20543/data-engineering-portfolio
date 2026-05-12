@@ -21,4 +21,4 @@ transitioning into Data Engineering. Currently building
 production-grade pipelines and expanding into dbt and cloud.
 
 📍 Cape Town, South Africa  
-🔗 [LinkedIn](www.linkedin.com/in/timothy-may-4671092b0)
+🔗 [LinkedIn](https://www.linkedin.com/in/timothy-may-4671092b0/)
