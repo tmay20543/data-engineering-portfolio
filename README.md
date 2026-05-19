@@ -1,6 +1,6 @@
 # Timothy May — Data Engineering Portfolio
 
-A collection of data engineering projects and practicals completed 
+A collection of data engineering practicals, labs, and future projects 
 as part of the IBM Data Engineering Professional Certificate and 
 personal learning.
 
