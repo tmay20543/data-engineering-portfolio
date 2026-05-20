@@ -58,3 +58,5 @@ clean_df = df[["id", "name", "region_name", "Income_level"]]
 clean_df.to_csv("countries_clean.csv", index=False)
 
 print(df.shape)
+
+# API DOCS: https://data360.worldbank.org/en/api?datasetid=IMF_AI#/Data/get_data360_data
