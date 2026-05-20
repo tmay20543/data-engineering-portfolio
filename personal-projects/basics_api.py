@@ -1,16 +1,49 @@
 import requests
 import pandas as pd
 
-url = "https://api.worldbank.org/v2/country/all?format=json"
+base_url = "https://api.worldbank.org/v2/country/all"
 
-response = requests.get(url)
+all_countries = []
 
-print("Status:", response.status_code)
+page = 1
 
-data = response.json()
+while True:
 
-countries = data[1]
+    params = {
+        "format": "json",
+        "page": page
+    }
 
-df = pd.DataFrame(countries)
+    try:
 
-print(df.head())
+        response = requests.get(
+            base_url,
+            params=params,
+            timeout=10
+        )
+
+        response.raise_for_status()
+
+        data = response.json()
+
+        metadata = data[0]
+        countries = data[1]
+
+        all_countries.extend(countries)
+
+        print(f"Collected page {page}")
+
+        if page >= metadata["pages"]:
+            break
+
+        page += 1
+
+    except requests.exceptions.RequestException as e:
+
+        print(f"API request failed: {e}")
+        break
+
+df = pd.DataFrame(all_countries)
+df.to_csv("countries.csv", index=False)
+df.to_json("countries.json")
+print(df.shape)
