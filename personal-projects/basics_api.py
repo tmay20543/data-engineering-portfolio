@@ -46,4 +46,15 @@ while True:
 df = pd.DataFrame(all_countries)
 df.to_csv("countries.csv", index=False)
 df.to_json("countries.json")
+
+# Data Cleaning and Transformation
+df["region_name"] = df["region"].apply(lambda x: x["value"])
+df["Income_level"] = df["incomeLevel"].apply(lambda x: x["value"])
+df = df[df["capitalCity"] != ""]
+
+
+clean_df = df[["id", "name", "region_name", "Income_level"]]
+
+clean_df.to_csv("countries_clean.csv", index=False)
+
 print(df.shape)
