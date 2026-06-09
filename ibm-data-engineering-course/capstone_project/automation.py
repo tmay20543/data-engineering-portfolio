@@ -7,18 +7,18 @@ import psycopg2
 # Connect to MySQL
 mysql_connection = mysql.connector.connect(
     user='root',
-    password='<replace with your Mysql password>',
-    host='<replace with your Mysql hostname>',
+    password='bMBqwGsKf6rvGFvLUEgeh9Rc',
+    host='172.21.156.122',
     database='sales'
 )
 mysql_cursor = mysql_connection.cursor()
 
 # Connect to PostgreSQL
-dsn_hostname = '<replace with your postgres hostname>'
+dsn_hostname = '172.21.98.64'
 dsn_user = 'postgres'
-dsn_pwd = '<replace with your postgres password>'
+dsn_pwd = '2NgHbdnAgtYmB6AvyTPu0ag5'
 dsn_port = "5432"
-dsn_database = "postgres"
+dsn_database = "sales"
 
 pg_connection = psycopg2.connect(
     database=dsn_database,
@@ -46,7 +46,11 @@ print("Last row id on production datawarehouse = ", last_row_id)
 
 
 def get_latest_records(rowid):
-    query = "SELECT * FROM sales_data WHERE rowid > %s"
+    query = """
+        SELECT rowid, product_id, customer_id, quantity
+        FROM sales_data
+        WHERE rowid > %s
+    """
     mysql_cursor.execute(query, (rowid,))
     records = mysql_cursor.fetchall()
     return records
@@ -63,11 +67,13 @@ def insert_records(records):
 
     query = """
         INSERT INTO sales_data
-        (rowid, product_id, customer_id, quantity, price, timestamp)
-        VALUES (%s, %s, %s, %s, %s, %s)
+        (rowid, product_id, customer_id, quantity)
+        VALUES (%s, %s, %s, %s)
     """
 
-    pg_cursor.executemany(query, records)
+    for row in records:
+        pg_cursor.execute(query, row)
+
     pg_connection.commit()
 
 
